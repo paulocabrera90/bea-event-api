@@ -1,0 +1,37 @@
+{
+  "groups": [
+    {
+      "name": "seed",
+      "type": "ar.com.itau.event.config.Config",
+      "sourceType": "ar.com.itau.event.config.Config"
+    },
+    {
+      "name": "seed.character-repository",
+      "type": "ar.com.itau.event.config.Config$SWCharacterRepositoryConfig",
+      "sourceType": "ar.com.itau.event.config.Config"
+    },
+    {
+      "name": "seed.user-repository",
+      "type": "ar.com.itau.event.config.Config$UserApiRepository",
+      "sourceType": "ar.com.itau.event.config.Config"
+    }
+  ],
+  "properties": [
+    {
+      "name": "seed.character-repository.url",
+      "type": "java.lang.String",
+      "sourceType": "ar.com.itau.event.config.Config$SWCharacterRepositoryConfig"
+    },
+    {
+      "name": "seed.prefix",
+      "type": "java.lang.String",
+      "sourceType": "ar.com.itau.event.config.Config"
+    },
+    {
+      "name": "seed.user-repository.url",
+      "type": "java.lang.String",
+      "sourceType": "ar.com.itau.event.config.Config$UserApiRepository"
+    }
+  ],
+  "hints": []
+}

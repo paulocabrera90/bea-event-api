@@ -1,0 +1,80 @@
+spring:
+  application:
+    name: ${APPLICATION_NAME:event-api,base-api}
+  sleuth:
+    baggage:
+      remote-fields:
+        - traceId
+        - channelId
+        - enterpriseId
+      correlation-fields:
+        - channelId
+        - enterpriseId
+
+springdoc:
+  swagger-ui:
+    path: /
+---
+server:
+  port: ${PORT}
+  servlet:
+    context-path: /api/${VERSION}/event-api
+
+spring:
+  config:
+    activate:
+      on-profile: default
+    import: "configserver:"
+  cloud:
+    config:
+      uri: ${SPRING_CLOUD_CONFIG_URL}
+      label: ${SPRING_CLOUD_CONFIG_LABEL}
+      profile: ${SPRING_CLOUD_CONFIG_PROFILE}
+
+keycloak:
+  auth-server-url: ${access-management.auth.server.url}
+  realm: ${access-management.users.realm}
+  resource: mercury
+
+rest.client.default.timeout: ${service.timeout}
+
+seed:
+  prefix: "API-SEE:"
+  channel-id: ${mercury.channel.id}
+  auth-role-interceptor-enabled: true
+  security-headers:
+    allowed-origin:
+    allowed-methods: POST,GET,PUT,PATCH,DELETE,OPTIONS
+    allowed-headers: "Accept,Access-Control-Allowed-Origin,Access-Control-Allowed-Methods,\
+      Access-Control-Allowed-Headers,Authorization,Content-Type,clientenv,clientname,clientver,enterpriseid"
+  character-repository:
+    url: ${seed.character-repository.url}
+  user-repository:
+    url: ${users.api.uri}
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+    import: optional:configserver:http://localhost:8888
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,refresh
+
+rest.client.default.timeout: 10000
+
+seed:
+  prefix: "API-SEE:"
+  channel-id: I
+  auth-role-interceptor-enabled: false
+  security-headers:
+    allowed-origin:
+    allowed-methods:
+    allowed-headers:
+  character-repository:
+    url: https://swapi.dev/api/people/{id}/
+  user-repository:
+    url: https://mercury-back-inte.apps.ocp-np.sis.ad.bia.itau/api/v1/users

@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: java8-spring-boot-seed
+  cloud:
+    config:
+      enabled: false
+  main:
+    allow-bean-definition-overriding: true
+
+keycloak:
+  enabled: false
+  realm: mock
+  resource: mock
+  auth-server-url: http://mock
+  bearer-only: true
+  credentials:
+    secret: mock
+
+rest:
+  client:
+    default:
+      timeout: 10000
